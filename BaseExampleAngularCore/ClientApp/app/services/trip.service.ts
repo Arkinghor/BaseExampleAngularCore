@@ -1,14 +1,18 @@
 ﻿import { Injectable } from "@angular/core";
-import { Http } from '@angular/http'; 
+import { Http, Response } from '@angular/http'; 
 import { Observable } from "rxjs/Observable";
+
+import 'rxjs/add/operator/map';
+import { Subject } from "rxjs/Subject";
 
 
 export interface ITripService {
-    getAllTrip(): Observable<AngularCore.Model.ITrip[]>
+    getAllTrip(): Observable<BaseExampleAngularCore.Model.ITrip[]>
 
     headers: Headers;
 
     getTripToEdit(): any//Observable<AngularCore.Model.ITrip[]>
+
 }
 
 
@@ -20,8 +24,10 @@ export class TripService implements ITripService{
     headers: Headers;
 
 
-    constructor(private http: Http) {
+    listners: Subject<any>;
 
+    constructor(private http: Http) {
+        this.listners = new Subject<any>();
     }
 
     getTripToEdit() {
@@ -31,8 +37,30 @@ export class TripService implements ITripService{
         //});
     } 
 
+    AddTrip(trip: BaseExampleAngularCore.Model.ITrip) {
+        this.http.post("http://localhost:56621/api/trips/AddTrip", trip).subscribe(
+            res => {
+                console.log(res);
+            },
+            err => {
+                console.log("Error occured");
+            }
+            );
+    }
+
     getAllTrip(): Observable<any> {
-        return this.http.get(`http://localhost:53346/api/trips/GetTrips`);
+        return this.http.get("http://localhost:56621/api/trips/GetTrips").map((res: Response) => {
+
+            return <BaseExampleAngularCore.Model.ITrip[]>res.json();
+        });
+    }
+
+    listen(): Observable<any> {
+        return this.listners.asObservable();
+    }
+
+    refresh(filterBy: string) {
+        this.listners.next(filterBy);
     }
 
 }

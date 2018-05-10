@@ -1,0 +1,8 @@
+﻿.formBox {
+    margin-top: 10px;
+    box-shadow: 0 13px 10px -8px gray;
+}
+
+.formBox:first-child{
+    margin-top: 10px;
+}

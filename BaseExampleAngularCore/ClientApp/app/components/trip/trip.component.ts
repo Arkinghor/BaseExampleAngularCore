@@ -5,22 +5,38 @@ import { TripService } from '../../services/trip.service';
 @Component({
     selector: 'trip',
     templateUrl: './trip.component.html',
-    styleUrls: ['./trip.component.css']
+    styleUrls: ['./trip.component.css'],
 })
 export class TripComponent {
 
-    trips: AngularCore.Model.ITrip[];
+    trips: BaseExampleAngularCore.Model.ITrip[];
 
-    test: any;
+    test: any;  
     
     constructor(private tripService: TripService) {
 
         var vm = this;
 
-        this.tripService.getAllTrip().subscribe((trips: AngularCore.Model.ITrip[]) => {
-                vm.trips = trips;
-            })
+        vm.GetTrips();
 
+
+        this.tripService.listen().subscribe((m: any) => {
+            // TODO check m for filter in future
+            if (m == "refreshTrips") {
+                this.GetTrips();
+            }
+       
+        });
+     
+
+    }
+
+
+
+    GetTrips() {
+        this.tripService.getAllTrip().subscribe((trips: BaseExampleAngularCore.Model.ITrip[]) => {
+            this.trips = trips;
+        })
     }
 
 }

@@ -1,0 +1,75 @@
+
+<div class="formBox">
+    <form class="form-horizontal" [formGroup]="signupForm" (ngSubmit)="onClickSubmit(signupForm.value)">
+        <div class="form-group">
+            <label for="HotelName" class="control-label col-xs-2">HotelName</label>
+            <div class="col-xs-10">
+                <input type="text" class="form-control" id="inputHotelName" placeholder="HotelName" formControlName="HotelName" required>
+            </div>
+
+
+            <div *ngIf="signupForm.controls.HotelName.invalid && (signupForm.controls.HotelName.dirty || signupForm.controls.HotelName.touched)"
+                 class="alert alert-danger">
+
+                <div *ngIf="signupForm.controls.HotelName.errors.required">
+                    Name is required.
+                </div>
+                <div *ngIf="signupForm.controls.HotelName.errors.minlength">
+                    Name must be at least 4 characters long.
+                </div>
+            </div>
+
+        </div>
+        <div class="form-group">
+            <label for="Country" class="control-label col-xs-2">Country</label>
+            <div class="col-xs-10">
+                <input type="text" class="form-control" id="inputCountry" placeholder="Country" formControlName="Country">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Region" class="control-label col-xs-2">Region</label>
+            <div class="col-xs-10">
+                <input type="text" class="form-control" id="inputRegion" placeholder="Region" formControlName="Region">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Price" class="control-label col-xs-2">Price</label>
+            <div class="col-xs-10">
+                <input type="text" class="form-control" id="inputPrice" placeholder="Price" formControlName="Price">
+            </div>
+        </div>
+
+
+        <div class="form-group" formArrayName="Assets">
+            <div *ngFor="let Assets of signupForm.controls.Assets.controls; let i=index">
+                <!-- address header, show remove button when more than one address available -->
+                <div>
+                    <span *ngIf="signupForm.controls.Assets.controls.length > 1" (click)="removeAssets(i)">
+                    </span>
+                </div>
+
+                <div class="form-group" [formGroupName]="i">
+                    <label for="Asset" class="control-label col-xs-2">Asset {{i}}</label>
+                    <div class="col-xs-10">
+                        <input type="text" class="form-control" id="Asset" placeholder="Asset" formControlName="Asset">
+                    </div>
+                    <!--<small [hidden]="signupForm.controls.addresses.controls[i].controls.street.valid">
+                        Street is required
+                    </small>-->
+
+                </div>
+            </div>
+            <div class="col-xs-offset-2 col-xs-10">
+                <span type="button" class="btn btn-link" (click)="addAssets()">AddAssets</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-xs-offset-2 col-xs-10">
+                <button type="submit" class="btn btn-primary">Add</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="formBox"></div>
+<trip></trip>

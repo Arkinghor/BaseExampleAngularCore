@@ -16,6 +16,21 @@ namespace RepositoryCommon
             this.context = context;
         }
 
+        public bool AddTrip(Trip trip)
+        {
+            try
+            {
+                context.Trips.Add(trip);
+                context.SaveChanges();
+                return true;
+            }
+            catch(Exception e)
+            {
+                //TODO add logger
+                return false;
+            }
+      
+        }
 
         public List<Trip> GetAllTrips()
         {
@@ -30,7 +45,7 @@ namespace RepositoryCommon
                     HowLong = trip.HowLong,
                     Price = trip.Price,
                     Region = trip.Region,
-                    Assets = asset.ToList()}).ToList();
+                    Assets = asset.ToList()}).OrderByDescending(x => x.TripId).ToList();
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿module AngularCore.Model {
+﻿module BaseExampleAngularCore.Model {
     'use strict';
 
     export interface ITrip {
