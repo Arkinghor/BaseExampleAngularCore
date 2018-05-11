@@ -1,44 +1,82 @@
 
 <div class="formBox">
     <form class="form-horizontal" [formGroup]="signupForm" (ngSubmit)="onClickSubmit(signupForm.value)">
-        <div class="form-group">
-            <label for="HotelName" class="control-label col-xs-2">HotelName</label>
-            <div class="col-xs-10">
-                <input type="text" class="form-control" id="inputHotelName" placeholder="HotelName" formControlName="HotelName" required>
-            </div>
+        <div class="col-sm-4 formLeft">
+            <div class="form-group">
+                <div class="col-md-8">
+                    <div class="input-group">
+                        <span class="input-group-addon">HotelName</span>
+                        <input id="HotelName" name="HotelName" class="form-control" placeholder="HotelName" type="text" formControlName="HotelName" required>
+                    </div>
 
+                    <div *ngIf="signupForm.controls.HotelName.invalid && (signupForm.controls.HotelName.dirty || signupForm.controls.HotelName.touched)"
+                         class="alert alert-danger">
 
-            <div *ngIf="signupForm.controls.HotelName.invalid && (signupForm.controls.HotelName.dirty || signupForm.controls.HotelName.touched)"
-                 class="alert alert-danger">
+                        <small *ngIf="signupForm.controls.HotelName.errors.required">
+                            HotelName is required.
+                        </small>
+                        <small *ngIf="signupForm.controls.HotelName.errors.minlength">
+                            HotelName must be at least 4 characters long.
+                        </small>
+                    </div>
 
-                <div *ngIf="signupForm.controls.HotelName.errors.required">
-                    Name is required.
                 </div>
-                <div *ngIf="signupForm.controls.HotelName.errors.minlength">
-                    Name must be at least 4 characters long.
+            </div>
+            <div class="form-group">
+                <div class="col-md-8">
+                    <div class="input-group">
+                        <span class="input-group-addon">Country</span>
+                        <input id="Country" name="Country" class="form-control" placeholder="Country" type="text" formControlName="Country" required>
+                    </div>
                 </div>
             </div>
+            <div class="form-group">
+                <div class="col-md-8">
+                    <div class="input-group">
+                        <span class="input-group-addon">Region</span>
+                        <input id="Region" name="Region" class="form-control" placeholder="Region" type="text" formControlName="Region" required>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-8">
+                    <div class="input-group">
+                        <span class="input-group-addon">Country</span>
+                        <input id="Price" name="Price" class="form-control" placeholder="Price" type="text" formControlName="Price" required>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-8">
+                    <div class="input-group">
+                        <span class="input-group-addon">Country</span>
+                        <input id="Price" name="Price" class="form-control" placeholder="Price" type="text" formControlName="Price" required>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        </div>
-        <div class="form-group">
-            <label for="Country" class="control-label col-xs-2">Country</label>
-            <div class="col-xs-10">
-                <input type="text" class="form-control" id="inputCountry" placeholder="Country" formControlName="Country">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="Region" class="control-label col-xs-2">Region</label>
-            <div class="col-xs-10">
-                <input type="text" class="form-control" id="inputRegion" placeholder="Region" formControlName="Region">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="Price" class="control-label col-xs-2">Price</label>
-            <div class="col-xs-10">
-                <input type="text" class="form-control" id="inputPrice" placeholder="Price" formControlName="Price">
-            </div>
-        </div>
+        <input type="file" #fileInput placeholder="Upload file..." (change) ="onFileSelected($event)"/>
+        <button type="button" (click)="uploadFile()">upload</button>
 
+        <!--<div class="form-group">
+            <div class="col-md-8">
+                <div class="input-group">
+                    <span class="input-group-addon">Image</span>
+                    <input id="Image" name="Image" class="form-control" placeholder="Image" type="file" formControlName="Image"  required>
+                </div>
+            </div>
+        </div>-->
+
+
+        <div class="form-group">
+            <div class="col-md-8">
+                <div class="input-group">
+                    <span class="input-group-addon">Date</span>
+                    <input id="Date" name="Date" class="form-control" placeholder="Date" type="datetime-local" formControlName="Date" required>
+                </div>
+            </div>
+        </div>
 
         <div class="form-group" formArrayName="Assets">
             <div *ngFor="let Assets of signupForm.controls.Assets.controls; let i=index">
@@ -49,14 +87,12 @@
                 </div>
 
                 <div class="form-group" [formGroupName]="i">
-                    <label for="Asset" class="control-label col-xs-2">Asset {{i}}</label>
-                    <div class="col-xs-10">
-                        <input type="text" class="form-control" id="Asset" placeholder="Asset" formControlName="Asset">
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">Asset {{i}}</span>
+                            <input id="Asset" name="Asset" class="form-control" placeholder="Asset" type="text" formControlName="Asset" required>
+                        </div>
                     </div>
-                    <!--<small [hidden]="signupForm.controls.addresses.controls[i].controls.street.valid">
-                        Street is required
-                    </small>-->
-
                 </div>
             </div>
             <div class="col-xs-offset-2 col-xs-10">
@@ -66,7 +102,7 @@
 
         <div class="form-group">
             <div class="col-xs-offset-2 col-xs-10">
-                <button type="submit" class="btn btn-primary">Add</button>
+                <button type="submit" class="btn btn-primary" >Add</button>
             </div>
         </div>
     </form>

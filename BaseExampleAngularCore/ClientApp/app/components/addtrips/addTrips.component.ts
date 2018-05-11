@@ -6,6 +6,7 @@ import { forEach } from '@angular/router/src/utils/collection';
 import { Router } from '@angular/router';
 
 import { TripComponent } from '../trip/trip.component';
+import { Event } from '@angular/router/src/events';
 
 
 @Component({
@@ -19,19 +20,21 @@ export class AddTripsComponent {
 
     signupForm: FormGroup;
 
+    selectedFile: any;
+
     @Output() onRefresh: EventEmitter<any> = new EventEmitter();
 
     assets: string[] = [];
-    
+
     constructor(private tripService: TripService,
         private router: Router,
         private fb: FormBuilder) {
 
-        var vm = this;
 
+        this.selectedFile = null;
 
         this.signupForm = new FormGroup({
-            HotelName: new FormControl('',[
+            HotelName: new FormControl('', [
                 <any>Validators.required,
                 <any>Validators.minLength(4)
             ]),
@@ -62,6 +65,18 @@ export class AddTripsComponent {
         });
     }
 
+    onFileSelected(event:any) {
+        this.selectedFile = event.target.files[0];
+    }
+
+    uploadFile() {
+        const formData: FormData = new FormData();
+
+        formData.append('image', this.selectedFile, this.selectedFile.name);
+
+        this.tripService.upload(formData);
+    }
+
     public onClickSubmit() {
         if (this.signupForm.valid) {
             var values = this.signupForm.value;
@@ -69,18 +84,20 @@ export class AddTripsComponent {
             for (let key in values.Assets) {
                 this.assets.push(values.Assets[key].Asset);
             }
-            
+
 
             this.trip = values;
 
             this.trip.Assets = this.assets;
-               
+
 
             this.tripService.AddTrip(this.trip);
 
+            this.uploadFile();
+
 
             this.tripService.refresh("refreshTrips");
-            
+
         }
     }
 

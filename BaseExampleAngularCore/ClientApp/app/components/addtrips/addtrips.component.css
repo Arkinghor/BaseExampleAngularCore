@@ -6,3 +6,14 @@
 .formBox:first-child{
     margin-top: 10px;
 }
+
+
+.formLeft{
+    float:left;
+}
+
+.alert {
+    margin: 0px;
+    padding: 2px;
+    padding-left:5px;
+}

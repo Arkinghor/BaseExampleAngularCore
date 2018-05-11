@@ -55,6 +55,17 @@ export class TripService implements ITripService{
         });
     }
 
+    upload(file: FormData) {
+        return this.http.post("http://localhost:56621/api/trips/UploadFile", file).subscribe(
+            res => {
+                console.log(res);
+            },
+            err => {
+                console.log("Error occured");
+            }
+        );
+    }
+
     listen(): Observable<any> {
         return this.listners.asObservable();
     }
