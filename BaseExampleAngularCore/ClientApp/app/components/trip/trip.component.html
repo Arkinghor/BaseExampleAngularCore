@@ -10,11 +10,11 @@
         </ul>
     </div>
 </div>-->
-
+<!--https://content4travel.com/cms/img/u/desktop/semain/CFUKAMA.jpg-->
 <div class="tripsOffert" role="presentation" *ngFor="let trip of trips">
     <div style="min-height:300px; width:initial">
-        <div class="offertImage col-md-6">
-            <img class="img-fluid" src="https://content4travel.com/cms/img/u/desktop/semain/CFUKAMA.jpg" alt="Hotel {{trip.hotelName}}">
+        <div class="offertImage col-md-6">       
+            <img class="img-fluid" src="{{trip.imagePath}}" alt="Hotel {{trip.hotelName}}">
         </div>
 
         <div class="ribbon col-md-6">
@@ -54,7 +54,7 @@
             <div class="OffertButtons">
                 <div> Get more <button class="btn btn-primary">Details</button> Or <button class="btn btn-primary">Book Now</button></div>
             </div>
-        </div>       
+        </div>
     </div>
 </div>
 

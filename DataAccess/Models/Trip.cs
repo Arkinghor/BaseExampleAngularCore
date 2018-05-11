@@ -12,6 +12,7 @@ namespace DataAccess.Models
         [Key]
         public int  TripId { get; set; }
 
+        public string ImagePath { get; set; }
         public string HotelName { get; set; }
         public string Country { get; set; }
         public string Region { get; set; }

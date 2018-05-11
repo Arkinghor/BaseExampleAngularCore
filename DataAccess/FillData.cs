@@ -23,15 +23,14 @@ namespace DataAccess
             optionsBuilder.UseSqlServer(configuration.GetConnectionString("TripDBConnection"));
 
 
-
             using (var db = new TripDBContext(optionsBuilder.Options))
             {
-
                 List<Trip> trips = new List<Trip>()
                 {
                     new Trip
                     {
                         HotelName = "hotel avalon",
+                        ImagePath = "../../../../Upload/CFUKAMA.jpg",
                         Country = "greece",
                         Region = "pelopenez",
                         Assets = new List<Asset>()
@@ -51,6 +50,7 @@ namespace DataAccess
                     ,new Trip
                     {
                         HotelName = "hotel avalon",
+                        ImagePath = "../../../../Upload/CFUKAMA.jpg",
                         Country = "greece",
                         Region = "pelopenez",
                         Assets = new List<Asset>()
@@ -67,6 +67,7 @@ namespace DataAccess
                     ,new Trip
                     {
                         HotelName = "hotel avalon",
+                        ImagePath = "../../../../Upload/CFUKAMA.jpg",
                         Country = "greece",
                         Region = "pelopenez",
                         Assets = new List<Asset>()
@@ -84,6 +85,7 @@ namespace DataAccess
                     ,new Trip
                     {
                         HotelName = "hotel avalon",
+                        ImagePath = "../../../../Upload/CFUKAMA.jpg",
                         Country = "greece",
                         Region = "pelopenez",
                         Assets = new List<Asset>()
@@ -100,6 +102,7 @@ namespace DataAccess
                     ,new Trip
                     {
                         HotelName = "hotel avalon",
+                        ImagePath = "../../../../Upload/CFUKAMA.jpg",
                         Country = "greece",
                         Region = "pelopenez",
                         Assets = new List<Asset>()

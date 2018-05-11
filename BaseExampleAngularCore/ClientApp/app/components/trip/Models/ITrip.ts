@@ -2,6 +2,7 @@
     'use strict';
 
     export interface ITrip {
+        ImagePath: string;
         HotelName: string,
         Country: string,
         Region: string,

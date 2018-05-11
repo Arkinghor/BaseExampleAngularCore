@@ -39,6 +39,7 @@ namespace RepositoryCommon
                 asset => asset.TripId,
                 (trip, asset) => new Trip{
                     TripId = trip.TripId,
+                    ImagePath = trip.ImagePath,
                     Country = trip.Country,
                     Date = trip.Date,
                     HotelName = trip.HotelName,

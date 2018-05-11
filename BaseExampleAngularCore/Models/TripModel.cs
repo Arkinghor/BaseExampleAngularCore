@@ -7,6 +7,7 @@ namespace BaseExampleAngularCore.Models
 {
     public class TripModel
     {
+        public string ImagePath { get; set; }
         public string HotelName { get; set; }
         public string Country { get; set; }
         public string Region { get; set; }
