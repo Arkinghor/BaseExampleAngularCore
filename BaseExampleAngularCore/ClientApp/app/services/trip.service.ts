@@ -1,4 +1,4 @@
-﻿import { Injectable } from "@angular/core";
+﻿import { Injectable, Inject } from "@angular/core";
 import { Http, Response } from '@angular/http'; 
 import { Observable } from "rxjs/Observable";
 
@@ -23,11 +23,13 @@ export class TripService implements ITripService{
 
     headers: Headers;
 
+    baseUrl: any;
 
     listners: Subject<any>;
 
-    constructor(private http: Http) {
+    constructor(private http: Http, @Inject('BASE_URL') baseUrl: string) {
         this.listners = new Subject<any>();
+        this.baseUrl = baseUrl;
     }
 
     getTripToEdit() {
@@ -38,7 +40,7 @@ export class TripService implements ITripService{
     } 
 
     AddTrip(trip: BaseExampleAngularCore.Model.ITrip) {
-        this.http.post("http://localhost:56621/api/trips/AddTrip", trip).subscribe(
+        this.http.post(this.baseUrl + "/api/trips/AddTrip", trip).subscribe(
             res => {
                 console.log(res);
             },
@@ -49,14 +51,14 @@ export class TripService implements ITripService{
     }
 
     getAllTrip(): Observable<any> {
-        return this.http.get("http://localhost:56621/api/trips/GetTrips").map((res: Response) => {
+        return this.http.get(this.baseUrl + "/api/trips/GetTrips").map((res: Response) => {
 
             return <BaseExampleAngularCore.Model.ITrip[]>res.json();
         });
     }
 
     upload(file: FormData) {
-        return this.http.post("http://localhost:56621/api/trips/UploadFile", file).subscribe(
+        return this.http.post(this.baseUrl + "/api/trips/UploadFile", file).subscribe(
             res => {
                 console.log(res);
             },
