@@ -20,6 +20,10 @@ export class AddTripsComponent {
 
     signupForm: FormGroup;
 
+    url: any;
+
+    imagePath: any;
+
     selectedFile: any;
 
     @Output() onRefresh: EventEmitter<any> = new EventEmitter();
@@ -31,6 +35,8 @@ export class AddTripsComponent {
         private fb: FormBuilder) {
 
 
+        this.url = "http://cudne-m.pl/wp-content/uploads/2017/03/natural-white-300x200.jpg";
+
         this.selectedFile = null;
 
         this.signupForm = new FormGroup({
@@ -38,9 +44,22 @@ export class AddTripsComponent {
                 <any>Validators.required,
                 <any>Validators.minLength(4)
             ]),
-            Country: new FormControl(),
-            Region: new FormControl(),
-            Price: new FormControl(),
+            Country: new FormControl('', [
+                <any>Validators.required,
+                <any>Validators.minLength(3)
+            ]),
+            Region: new FormControl('', [
+                <any>Validators.required,
+                <any>Validators.minLength(4)
+            ]),
+            Price: new FormControl('', [
+                <any>Validators.required,
+                <any>Validators.minLength(4)
+            ]),
+            HowLong: new FormControl('', [
+                <any>Validators.required
+            ]),
+            TripDate: new FormControl(),
             Assets: this.fb.array([
                 this.initAssets()
             ])
@@ -67,6 +86,29 @@ export class AddTripsComponent {
 
     onFileSelected(event:any) {
         this.selectedFile = event.target.files[0];
+
+        var reader = new FileReader();
+
+        reader.onload = (event) => { // called once readAsDataURL is completed
+            const img = new Image();
+            
+            if (reader.result) {
+                img.src = reader.result;
+            }
+            img.onload = (event2) => {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                //canvas.width = 150;
+                //canvas.height = 150;
+                if (ctx) {
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                }
+
+                this.url = canvas.toDataURL('image/jpg');
+            };
+        }
+
+        reader.readAsDataURL(event.target.files[0]); // read file as data url
     }
 
     uploadFile() {
@@ -90,11 +132,15 @@ export class AddTripsComponent {
 
             this.trip.Assets = this.assets;
 
+            this.trip.Date = "11-16-2018";
 
-            this.tripService.AddTrip(this.trip);
+
+            this.trip.ImagePath = "../../../../Upload/" + this.selectedFile.name;
 
             this.uploadFile();
 
+
+            this.tripService.AddTrip(this.trip);
 
             this.tripService.refresh("refreshTrips");
 
